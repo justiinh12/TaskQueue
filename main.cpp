@@ -1,16 +1,9 @@
 #include "Logger.h"
 
-void test() {
-
-	Logger l("ID1");
-
-	sleep(50);
-
-}
-
 int main() {
 
-	test();
+
+    Logger l{"ID1"};
 
 	return 0;
 

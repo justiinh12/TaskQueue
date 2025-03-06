@@ -1,14 +1,13 @@
 #include "Logger.h"
 
 
-Logger::Logger(const char* id) : id(m_ID) {
-
+Logger::Logger(std::string id) : m_ID(id) {
 	//get client socket setup before setting up
 	//producer consumer
-	initSock();
+	initSocket();
 
 	//init /proc/kmesg
-	initFile();
+	//initFile();
 
 	m_Sender = std::thread(&Logger::sender, this);
 	m_Receiver = std::thread(&Logger::receiver, this);
@@ -34,7 +33,7 @@ Logger::~Logger() {
 }
 
 //Init UDP Client socket to send data
-void Logger::initSock() {
+void Logger::initSocket() {
 
 	sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	if(sockfd < 0) {
@@ -53,19 +52,22 @@ void Logger::initSock() {
 void Logger::sender() {
 
 	//open file and write every line to the queue
-	std::ifstream file("/proc/kmesg");
+	std::ifstream file("/proc/kmsg");
 
-	assert(file);
+	assert(file.is_open());
+    std::cout << "file is valid pointer" << std::endl;
 
 	std::string line;
-	while(sd::getline(file, line)) {
+	while(std::getline(file, line)) {
 		{
 			std::lock_guard<std::mutex> lock(m_Mutex);
 			line = m_ID + " " + line;
-			m_MessageQueue.push(line);
+            std::cout << line << std::endl;
+			m_queue.push(line);
 		}
 		m_CV.notify_one();
 	}
+    std::cout << "Sender done" << std::endl;
 
 
 }
@@ -75,7 +77,7 @@ void Logger::receiver() {
 	while(true) {
 
 		std::unique_lock<std::mutex> lock(m_Mutex);
-		m_CV.wait(lock, [] { returnw !m_queue.empty(); });
+		m_CV.wait(lock, [&] { return !m_queue.empty(); });
 
 		while(!m_queue.empty()) {
 

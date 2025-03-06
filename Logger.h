@@ -25,7 +25,7 @@ class Logger {
 
 public:
 	
-	Logger(const char* id);
+	Logger(std::string id);
 	~Logger();
 
 	//Create socket to start 
@@ -40,16 +40,16 @@ public:
 
 private:
 	//Simulated Machine ID
-	const char* m_ID;
+	std::string m_ID;
 
-	std::atomic<bool> m_Done = false;
+	std::atomic<bool> m_Done;
 
 	//Socket fd and addr struct
 	int sockfd;
 	struct sockaddr_in servaddr;
 
 	//message queue to send over udp
-	std::queue<std::string> m_MessageQueue;
+	std::queue<std::string> m_queue;
 
 	//File descriptor for opening /dev/kmsg
 	//int kmesgfd;
@@ -63,6 +63,6 @@ private:
 	std::mutex m_Mutex;
 
 
-}
+};
 
 #endif
