@@ -21,6 +21,11 @@
 #define PORT 8000
 #define MAXLINE 1024
 
+/**
+ * Class to handle parsing simulated dmesg formatted output.
+ * We use basic locking with condition variables to push and pop
+ * from a queue containing the strings
+ */
 class Logger {
 
 public:

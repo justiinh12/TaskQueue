@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/log.dir/main.cpp.o CMakeFiles/log.dir/Logger.cpp.o  -o log -lpthread 

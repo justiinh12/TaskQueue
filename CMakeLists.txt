@@ -3,9 +3,13 @@ project(TaskQueue)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(SRC_FILES
+	main.cpp
+	Logger.cpp
+)
 
 # Add source files
-add_executable(log main.cpp Logger.cpp)
+add_executable(log $(SRC_FILES))
 
 # link to pthread
 if(UNIX)

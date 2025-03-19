@@ -1,3 +1,0 @@
-/home/justin/TaskQueue/TaskQueue/build/CMakeFiles/rebuild_cache.dir
-/home/justin/TaskQueue/TaskQueue/build/CMakeFiles/log.dir
-/home/justin/TaskQueue/TaskQueue/build/CMakeFiles/edit_cache.dir
