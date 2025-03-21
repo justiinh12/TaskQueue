@@ -8,6 +8,13 @@ set(SRC_FILES
 	Logger.cpp
 )
 
+set(TEST_FILES
+	LogGenerator.cpp
+)
+
+#Create fake log generation
+add_executable(genlog ${TEST_FILES})
+
 # Add source files
 add_executable(log ${SRC_FILES})
 

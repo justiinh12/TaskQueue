@@ -3,7 +3,7 @@
 int main() {
 
 
-    Logger l{"ID1"};
+    	Logger l{};
 
 	return 0;
 

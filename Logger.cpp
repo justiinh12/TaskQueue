@@ -1,7 +1,7 @@
 #include "Logger.h"
 
 
-Logger::Logger(std::string id) : m_ID(id) {
+Logger::Logger() {
 	//get client socket setup before setting up
 	//producer consumer
 	initSocket();
@@ -52,17 +52,15 @@ void Logger::initSocket() {
 void Logger::sender() {
 
 	//open file and write every line to the queue
-	std::ifstream file("/proc/kmsg");
+	std::ifstream file(path);
 
 	assert(file.is_open());
-    std::cout << "file is valid pointer" << std::endl;
+    	std::cout << "file is valid pointer" << std::endl;
 
 	std::string line;
 	while(std::getline(file, line)) {
 		{
 			std::lock_guard<std::mutex> lock(m_Mutex);
-			line = m_ID + " " + line;
-            std::cout << line << std::endl;
 			m_queue.push(line);
 		}
 		m_CV.notify_one();

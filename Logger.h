@@ -30,7 +30,7 @@ class Logger {
 
 public:
 	
-	Logger(std::string id);
+	Logger();
 	~Logger();
 
 	//Create socket to start 
@@ -45,7 +45,9 @@ public:
 
 private:
 	//Simulated Machine ID
-	std::string m_ID;
+	//std::string m_ID;
+	
+	const std::string path = "../kmesg_sim.log";
 
 	std::atomic<bool> m_Done;
 
